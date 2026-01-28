@@ -64,12 +64,10 @@ export async function loadMarkdown(topicId: string, cardId: string): Promise<str
       [`install-setup-card1`]: () => import('../content/install/setup/card1.md?raw'),
       [`install-setup-card2`]: () => import('../content/install/setup/card2.md?raw'),
       [`install-api-config-card1`]: () => import('../content/install/api-config/card1.md?raw'),
-      [`install-api-config-card2`]: () => import('../content/install/api-config/card2.md?raw'),
       [`install-quick-start-card1`]: () => import('../content/install/quick-start/card1.md?raw'),
       [`examples-setup-card1`]: () => import('../content/examples/setup/card1.md?raw'),
       [`examples-setup-card2`]: () => import('../content/examples/setup/card2.md?raw'),
       [`examples-api-config-card1`]: () => import('../content/examples/api-config/card1.md?raw'),
-      [`examples-api-config-card2`]: () => import('../content/examples/api-config/card2.md?raw'),
       [`examples-quick-start-card1`]: () => import('../content/examples/quick-start/card1.md?raw')
     };
     
