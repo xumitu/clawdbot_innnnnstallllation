@@ -15,8 +15,8 @@
 
 <section class="py-12">
   <div class="text-center mb-8">
-    <h2 class="text-3xl font-bold text-gray-900 mb-2">{title}</h2>
-    <p class="text-gray-600 max-w-2xl mx-auto">{description}</p>
+    <h2 class="text-3xl font-bold text-nord-6 mb-2">{title}</h2>
+    <p class="text-nord-4 max-w-2xl mx-auto opacity-80">{description}</p>
   </div>
 
   <div class="card-container">

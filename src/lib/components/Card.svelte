@@ -71,17 +71,18 @@
 <style>
   .card {
     position: relative;
-    background: white;
+    background: #4C566A;
     border-radius: 16px;
     padding: 2rem;
     min-height: 280px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     cursor: default;
+    border: 1px solid #5E81AC;
   }
 
   .card:hover {
-    box-shadow: 0 8px 32px rgba(244, 67, 54, 0.15);
+    box-shadow: 0 8px 32px rgba(136, 192, 208, 0.2);
   }
 
   .copy-btn {
@@ -91,24 +92,26 @@
     padding: 8px 16px;
     font-size: 0.875rem;
     border-radius: 8px;
-    background: #f5f5f5;
-    border: none;
+    background: #434C5E;
+    border: 1px solid #5E81AC;
+    color: #ECEFF4;
     cursor: pointer;
     transition: all 0.2s;
   }
 
   .copy-btn:hover {
-    background: #f44336;
-    color: white;
+    background: #5E81AC;
+    color: #ECEFF4;
   }
 
   :global(.prose pre) {
-    background: #1e1e1e;
-    color: #d4d4d4;
+    background: #2E3440;
+    color: #D8DEE9;
     padding: 1rem;
     border-radius: 8px;
     overflow-x: auto;
     margin: 1rem 0;
+    border: 1px solid #434C5E;
   }
 
   :global(.prose code) {
@@ -119,7 +122,7 @@
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.75rem;
-    color: #1a1a1a;
+    color: #ECEFF4;
   }
 
   :global(.prose h2) {
@@ -127,17 +130,17 @@
     font-weight: 600;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: #E5E9F0;
   }
 
   :global(.prose p) {
-    color: #555;
+    color: #D8DEE9;
     line-height: 1.6;
   }
 
   :global(.prose ul) {
     padding-left: 1.25rem;
-    color: #555;
+    color: #D8DEE9;
   }
 
   :global(.prose li) {
@@ -145,11 +148,15 @@
   }
 
   :global(.prose blockquote) {
-    background: #fff3f3;
-    border-left: 4px solid #f44336;
+    background: #3B4252;
+    border-left: 4px solid #88C0D0;
     padding: 1rem;
     border-radius: 0 8px 8px 0;
     margin: 1rem 0;
-    color: #666;
+    color: #D8DEE9;
+  }
+
+  :global(.prose strong) {
+    color: #ECEFF4;
   }
 </style>

@@ -62,7 +62,7 @@
 <LanguagePicker />
 
 <main class="min-h-screen pb-20">
-  <header class="py-20 text-center bg-gradient-to-b from-md-red-50 to-transparent">
+  <header class="py-20 text-center bg-gradient-to-b from-nord-3 to-transparent">
     <h1 
       bind:clientWidth={titleBounds}
       class="title"
@@ -70,7 +70,7 @@
     >
       Clawdbot
     </h1>
-    <p class="text-xl text-gray-600 max-w-2xl mx-auto px-4">
+    <p class="text-xl text-nord-4 max-w-2xl mx-auto px-4">
       AI Agent Installation Guide
     </p>
   </header>
@@ -79,7 +79,7 @@
     <TopicSection {topic} cards={cardContents} />
   {/each}
 
-  <footer class="text-center py-12 text-gray-500 text-sm">
+  <footer class="text-center py-12 text-nord-4 text-sm opacity-60">
     <p>© 2024 Clawdbot. All rights reserved.</p>
   </footer>
 </main>
@@ -89,7 +89,7 @@
     font-size: 3.5rem;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: #1a1a1a;
+    color: #ECEFF4;
     position: relative;
     display: inline-block;
     cursor: default;
@@ -106,9 +106,9 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(244, 67, 54, 0.8) 30%,
-      rgba(255, 152, 0, 0.9) 50%,
-      rgba(244, 67, 54, 0.8) 70%,
+      rgba(136, 192, 208, 0.9) 30%,
+      rgba(129, 161, 193, 0.95) 50%,
+      rgba(136, 192, 208, 0.9) 70%,
       transparent 100%
     );
     background-size: 200% 100%;
@@ -131,7 +131,7 @@
     height: 100%;
     background: radial-gradient(
       ellipse at center,
-      rgba(244, 67, 54, calc(var(--glow-intensity, 0) * 0.6)) 0%,
+      rgba(136, 192, 208, calc(var(--glow-intensity, 0) * 0.6)) 0%,
       transparent 70%
     );
     color: transparent;
