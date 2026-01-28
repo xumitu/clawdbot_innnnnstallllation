@@ -2,12 +2,11 @@ import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 import type { SupportedLocale } from '../types';
 
-export const SUPPORTED_LOCALES: SupportedLocale[] = ['en', 'zh-CN', 'fr', 'ko', 'ja', 'es', 'ru'];
+export const SUPPORTED_LOCALES: SupportedLocale[] = ['en', 'zh-CN', 'ko', 'ja', 'es', 'ru'];
 
 export const LOCALE_FLAGS: Record<SupportedLocale, string> = {
   en: '🇺🇸',
   'zh-CN': '🇨🇳',
-  'fr': '🇫🇷',
   ko: '🇰🇷',
   ja: '🇯🇵',
   es: '🇪🇸',
@@ -22,7 +21,6 @@ function getInitialLocale(): SupportedLocale {
     if (saved && SUPPORTED_LOCALES.includes(saved)) return saved;
     const browserLang = navigator.language;
     if (browserLang.startsWith('zh')) return 'zh-CN';
-    if (browserLang.startsWith('fr')) return 'fr';
     if (browserLang.startsWith('ko')) return 'ko';
     if (browserLang.startsWith('ja')) return 'ja';
     if (browserLang.startsWith('es')) return 'es';
