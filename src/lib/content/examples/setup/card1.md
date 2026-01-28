@@ -1,9 +1,3 @@
-# One-Command Install
+# 猪圈建设要点
 
-To install Clawdbot, simply run the following command in your terminal:
-
-```bash
-curl -fsSL https://install.clawdbot.com/install.sh | bash
-```
-
-This script will automatically download and install the latest version of Clawdbot.
+选址要求地势干燥、通风良好，水源充足。猪圈面积根据养殖规模确定，每头育肥猪需2-3平方米。围墙高度2.5米，屋顶采用隔热材料，夏季注意降温通风。

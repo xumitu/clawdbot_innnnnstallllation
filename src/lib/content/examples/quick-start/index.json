@@ -1,1 +1,1 @@
-{"id": "quick-start", "order": 3, "title": {"en": "Quick Start"}, "description": {"en": "Get started with Clawdbot"}, "cards": [{"id": "basic-usage", "order": 1, "type": "code", "icon": "rocket", "copyable": true}]}
+{"id": "quick-start", "order": 3, "title": {"en": "猪场管理", "zh-CN": "猪场管理"}, "description": {"en": "Complete pig farm management guide", "zh-CN": "现代化猪场全面管理指南"}, "cards": [{"id": "farm-guide", "order": 1, "type": "code", "icon": "📖", "copyable": true}]}

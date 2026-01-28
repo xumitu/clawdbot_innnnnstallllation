@@ -1,9 +1,18 @@
-# Get Your API Key
+## 疾病防控体系
 
-1. Visit [dashboard.clawdbot.com](https://dashboard.clawdbot.com)
-2. Sign up for an account
-3. Navigate to Settings > API Keys
-4. Generate a new API key
-5. Copy and store it securely
+### 预防措施
 
-> **Warning**: Never share your API key publicly.
+1. **免疫接种**：按时接种猪瘟、口蹄疫、伪狂犬、蓝耳病等疫苗
+2. **消毒制度**：猪舍每周消毒2-3次，场区每周1次
+3. **隔离观察**：新引进猪只隔离观察30天确认无病后方可混群
+4. **定期驱虫**：体内外驱虫每季度一次
+
+### 常见疾病
+
+- 猪瘟：高热稽留，死亡率高，紧急接种弱毒疫苗
+- 口蹄疫：蹄部、口腔水疱，接触传播快，紧急扑杀
+- 伪狂犬：神经症状，种猪重点防控，净化种群
+
+### 疫情处理
+
+发现疑似疫情立即上报，隔离病猪，全场消毒，死猪无害化处理。

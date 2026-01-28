@@ -1,9 +1,3 @@
-# Verify Installation
+# 猪饲料配方与喂养
 
-After installation, verify that Clawdbot is working correctly:
-
-```bash
-clawdbot --version
-```
-
-You should see the version number output, confirming successful installation.
+饲料是养殖成本的主要部分，约占70%。常见饲料包括玉米、豆粕、麸皮、鱼粉等。仔猪阶段需要高蛋白饲料，育肥猪以能量饲料为主。喂养次数：仔猪每天4-5次，育肥猪每天2-3次。保证充足清洁饮水，水温以15-20℃为宜。定期驱虫防疫，保持猪舍卫生，每季度进行一次全面消毒。
