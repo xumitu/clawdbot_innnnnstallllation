@@ -30,7 +30,9 @@
   onmouseleave={() => isHovered = false}
   class="topic-display"
   class:hovered={isHovered}
+  role="article"
 >
+  <div class="glow-overlay"></div>
   <div class="content-wrapper">
     <h2 class="topic-title">{title}</h2>
     <div class="markdown-content prose">
@@ -48,33 +50,45 @@
     border-radius: 16px;
     border: 1px solid rgba(136, 192, 208, 0.2);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
     animation: regionAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     opacity: 0;
   }
 
-  .topic-display::before {
-    content: '';
+  .glow-overlay {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #D08770, #EBCB8B, #D08770);
+    inset: -8px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(208, 135, 112, 0.5) 0%,
+      rgba(235, 203, 139, 0.3) 40%,
+      transparent 70%
+    );
+    border-radius: 24px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(12px);
   }
 
-  .topic-display.hovered::before {
+  .topic-display.hovered .glow-overlay {
     opacity: 1;
+    animation: ambientGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes ambientGlow {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
   }
 
   .topic-display:hover {
-    border-color: rgba(208, 135, 112, 0.5);
-    box-shadow: 0 8px 32px rgba(208, 135, 112, 0.15);
+    border-color: rgba(208, 135, 112, 0.4);
   }
 
   .content-wrapper {
+    position: relative;
+    z-index: 1;
     padding: 1.5rem;
   }
 
