@@ -5,13 +5,14 @@
   let isOpen = $state(false);
   let currentLang = $derived($locale);
   
-  const radius = 80;
+  const radius = 60;
+  const expandedRadius = 100;
 
-  function getPosition(index: number, total: number) {
+  function getPosition(index: number, total: number, r: number) {
     const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
     return {
-      x: Math.cos(angle) * radius,
-      y: Math.sin(angle) * radius
+      x: Math.cos(angle) * r,
+      y: Math.sin(angle) * r
     };
   }
 
@@ -40,23 +41,23 @@
   }
 </script>
 
-<div class="fixed top-6 right-6 z-40">
+<div class="language-picker">
   <button
     onclick={toggle}
-    class="w-14 h-14 rounded-full bg-md-red-500 shadow-lg flex items-center justify-center text-2xl transition-transform hover:scale-110"
+    class="main-btn"
     aria-label="Select language"
   >
     {LOCALE_FLAGS[currentLang]}
   </button>
 
   {#if isOpen}
-    <div class="absolute top-0 left-0 w-14 h-14">
+    <div class="menu-container">
       {#each SUPPORTED_LOCALES as lang, i}
-        {@const pos = getPosition(i, SUPPORTED_LOCALES.length)}
+        {@const pos = getPosition(i, SUPPORTED_LOCALES.length, expandedRadius)}
         <button
           onclick={() => selectLanguage(lang)}
-          class="absolute w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-xl transition-all duration-300 hover:bg-md-red-100"
-          style="transform: translate({pos.x}px, {pos.y}px) scale({isOpen ? 1 : 0}); opacity: {isOpen ? 1 : 0};"
+          class="menu-item"
+          style="transform: translate({pos.x}px, {pos.y}px) scale({isOpen ? 1 : 0});"
           aria-label={lang}
         >
           {LOCALE_FLAGS[lang]}
@@ -65,3 +66,63 @@
     </div>
   {/if}
 </div>
+
+<style>
+  .language-picker {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1000;
+    width: 44px;
+    height: 44px;
+  }
+
+  .main-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f44336;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .main-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+  }
+
+  .menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .menu-item {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .menu-item:hover {
+    background: #ffebee;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.2);
+  }
+</style>
