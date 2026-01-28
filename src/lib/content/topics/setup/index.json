@@ -1,0 +1,38 @@
+{
+  "id": "setup",
+  "order": 1,
+  "title": {
+    "en": "Installation",
+    "ko": "설치",
+    "ja": "インストール",
+    "es": "Instalación",
+    "ru": "Установка",
+    "zh-CN": "安装",
+    "zh-TW": "安裝"
+  },
+  "description": {
+    "en": "Install Clawdbot to your system",
+    "ko": "시스템에 Clawdbot 설치",
+    "ja": "Clawdbotをシステムにインストール",
+    "es": "Instala Clawdbot en tu sistema",
+    "ru": "Установите Clawdbot в вашу систему",
+    "zh-CN": "将 Clawdbot 安装到您的系统",
+    "zh-TW": "將 Clawdbot 安裝到您的系統"
+  },
+  "cards": [
+    {
+      "id": "terminal-command",
+      "order": 1,
+      "type": "terminal",
+      "icon": "terminal",
+      "copyable": true
+    },
+    {
+      "id": "verify-install",
+      "order": 2,
+      "type": "terminal",
+      "icon": "check",
+      "copyable": true
+    }
+  ]
+}
