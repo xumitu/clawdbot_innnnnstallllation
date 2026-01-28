@@ -4,17 +4,6 @@
 
   let isOpen = $state(false);
   let currentLang = $derived($locale);
-  
-  const radius = 60;
-  const expandedRadius = 100;
-
-  function getPosition(index: number, total: number, r: number) {
-    const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
-    return {
-      x: Math.cos(angle) * r,
-      y: Math.sin(angle) * r
-    };
-  }
 
   function selectLanguage(lang: SupportedLocale) {
     locale.set(lang);
@@ -51,13 +40,11 @@
   </button>
 
   {#if isOpen}
-    <div class="menu-container">
-      {#each SUPPORTED_LOCALES as lang, i}
-        {@const pos = getPosition(i, SUPPORTED_LOCALES.length, expandedRadius)}
+    <div class="menu-bar">
+      {#each SUPPORTED_LOCALES as lang}
         <button
           onclick={() => selectLanguage(lang)}
           class="menu-item"
-          style="transform: translate({pos.x}px, {pos.y}px) scale({isOpen ? 1 : 0});"
           aria-label={lang}
         >
           {LOCALE_FLAGS[lang]}
@@ -73,8 +60,9 @@
     top: 24px;
     right: 24px;
     z-index: 1000;
-    width: 44px;
-    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .main-btn {
@@ -89,6 +77,7 @@
     font-size: 1.25rem;
     transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
+    flex-shrink: 0;
   }
 
   .main-btn:hover {
@@ -96,33 +85,46 @@
     box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
   }
 
-  .menu-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    transform: translate(-50%, -50%);
+  .menu-bar {
+    display: flex;
+    gap: 6px;
+    background: white;
+    padding: 6px 10px;
+    border-radius: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .menu-item {
-    position: absolute;
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background: #f5f5f5;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1rem;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.2s;
     cursor: pointer;
-    opacity: 0;
   }
 
   .menu-item:hover {
     background: #ffebee;
-    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.2);
+    transform: scale(1.1);
+  }
+
+  .menu-item[aria-current="true"] {
+    background: #f44336;
   }
 </style>
