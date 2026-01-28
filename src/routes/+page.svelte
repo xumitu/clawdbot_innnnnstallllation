@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { locale } from '$lib/stores/language.store';
+  import { theme } from '$lib/stores/theme.store';
   import { loadTopics, loadMarkdown, loadLocale } from '$lib/utils/content-loader';
   import type { Topic, Locale } from '$lib/types';
   import TopicDisplay from '$lib/components/TopicDisplay.svelte';
   import MouseEffects from '$lib/components/MouseEffects.svelte';
-  import LanguagePicker from '$lib/components/LanguagePicker.svelte';
+  import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 
   let topics = $state<Topic[]>([]);
   let cardContents = $state<Map<string, string>>(new Map());
@@ -25,13 +25,7 @@
     }
     cardContents = new Map(cardContents);
     
-    translations = await loadLocale($locale);
-  });
-
-  $effect(() => {
-    if ($locale && topics.length > 0) {
-      loadLocale($locale).then(t => translations = t);
-    }
+    translations = await loadLocale('en');
   });
 
   function onMouseMove(e: MouseEvent) {
@@ -54,12 +48,11 @@
 
 <svelte:window onmousemove={onMouseMove} />
 <svelte:head>
-  <title>Clawdbot Installation</title>
-  <meta name="description" content="Interactive installation guide for Clawdbot AI Agent" />
+  <title>Clawdbot</title>
 </svelte:head>
 
 <MouseEffects />
-<LanguagePicker />
+<ThemeSwitcher />
 
 <main class="min-h-screen pb-20">
   <header class="py-16 text-center">
@@ -68,11 +61,8 @@
       class="title"
       style={getTitleStyle()}
     >
-      Clawdbot
+      clawdbot 分享
     </h1>
-    <p class="text-xl text-nord-4 max-w-2xl mx-auto px-4 opacity-80">
-      AI Agent Installation Guide
-    </p>
   </header>
 
   <div class="regions-container">
@@ -93,7 +83,7 @@
 
 <style>
   .title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: #ECEFF4;
@@ -104,7 +94,7 @@
   }
 
   .title::before {
-    content: 'Clawdbot';
+    content: 'clawdbot 分享';
     position: absolute;
     left: 0;
     top: 0;
@@ -124,13 +114,13 @@
     color: transparent;
     filter: blur(0px);
     opacity: calc(0.3 + (var(--glow-intensity, 0) * 0.7));
-    transform: translateX(calc((var(--glow-intensity, 0) - 0.5) * -20%));
+    transform: translateX(calc((var(--glow-intensity, 0) - 0.5) * -15%));
     animation: shimmer 3s ease-in-out infinite;
     animation-delay: 0.5s;
   }
 
   .title::after {
-    content: 'Clawdbot';
+    content: 'clawdbot 分享';
     position: absolute;
     left: 0;
     top: 0;

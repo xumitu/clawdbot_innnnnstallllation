@@ -3,22 +3,24 @@
   import DOMPurify from 'dompurify';
   import { onMount } from 'svelte';
   import type { Topic } from '$lib/types';
-  import { locale } from '$lib/stores/language.store';
+  import { theme, themeConfig } from '$lib/stores/theme.store';
 
   let { topic, cardContents } = $props<{
     topic: Topic;
     cardContents: Map<string, string>;
   }>();
 
-  let currentLang = $derived($locale);
-  let title = $derived(topic.title[currentLang] || topic.title['en'] || '');
-
   let htmlContent = $state('');
   let element: HTMLElement;
   let isHovered = $state(false);
 
+  let currentTheme = $derived($theme);
+  let config = $derived(themeConfig[currentTheme]);
+  let borderStyle = $derived(`background: ${config.borderGlow};`);
+  let hoverShadow = $derived(config.hoverGlowColor);
+
   onMount(async () => {
-    const markdown = cardContents.get(`${topic.id}-${topic.cards[0]?.id}`) || '# ' + title;
+    const markdown = cardContents.get(`${topic.id}-${topic.cards[0]?.id}`) || '# ' + topic.title.en;
     const raw = await marked.parse(markdown);
     htmlContent = DOMPurify.sanitize(raw as string);
   });
@@ -32,9 +34,9 @@
   class:hovered={isHovered}
   role="article"
 >
-  <div class="border-glow"></div>
+  <div class="border-glow" style={borderStyle}></div>
   <div class="content-wrapper">
-    <h2 class="topic-title">{title}</h2>
+    <h2 class="topic-title">{topic.title.en}</h2>
     <div class="markdown-content prose">
       {@html htmlContent}
     </div>
@@ -60,14 +62,6 @@
     inset: 0;
     border-radius: 16px;
     padding: 2px;
-    background: linear-gradient(
-      135deg,
-      #D08770 0%,
-      #EBCB8B 25%,
-      #D08770 50%,
-      #BF616A 75%,
-      #D08770 100%
-    );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -82,7 +76,15 @@
   }
 
   .topic-display:hover {
-    box-shadow: 0 0 30px rgba(208, 135, 112, 0.4);
+    box-shadow: 0 0 30px var(--hover-glow);
+  }
+
+  .topic-display {
+    --hover-glow: #D08770;
+  }
+
+  :global(.examples) .topic-display {
+    --hover-glow: #88C0D0;
   }
 
   .content-wrapper {
