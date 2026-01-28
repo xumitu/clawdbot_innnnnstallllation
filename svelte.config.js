@@ -9,7 +9,8 @@ const config = {
       pages: 'build',
       assets: 'build',
       fallback: null,
-      precompress: false
+      precompress: false,
+      base: '/clawdbot_innnnnstallllation/'
     }),
     prerender: {
       entries: ['*']
