@@ -61,7 +61,8 @@ export async function loadLocale(lang: SupportedLocale): Promise<Locale> {
     try {
       const modules: Record<string, () => Promise<{ default: Locale }>> = {
         'en': () => import('../content/locales/en.json?url'),
-        'zh-CN': () => import('../content/locales/zh-CN.json?url')
+        'zh-CN': () => import('../content/locales/zh-CN.json?url'),
+        'fr': () => import('../content/locales/fr.json?url')
       };
       
       if (modules[lang]) {

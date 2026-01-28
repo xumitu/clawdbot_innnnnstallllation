@@ -25,14 +25,14 @@ export interface Locale {
   close: string;
 }
 
-export type SupportedLocale = 'en' | 'zh-CN' | 'zh-TW' | 'ko' | 'ja' | 'es' | 'ru';
+export type SupportedLocale = 'en' | 'zh-CN' | 'fr' | 'ko' | 'ja' | 'es' | 'ru';
 
-export const SUPPORTED_LOCALES: SupportedLocale[] = ['en', 'zh-CN', 'zh-TW', 'ko', 'ja', 'es', 'ru'];
+export const SUPPORTED_LOCALES: SupportedLocale[] = ['en', 'zh-CN', 'fr', 'ko', 'ja', 'es', 'ru'];
 
 export const LOCALE_FLAGS: Record<SupportedLocale, string> = {
   en: '🇺🇸',
   'zh-CN': '🇨🇳',
-  'zh-TW': '🇹🇼',
+  'fr': '🇫🇷',
   ko: '🇰🇷',
   ja: '🇯🇵',
   es: '🇪🇸',
