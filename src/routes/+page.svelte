@@ -3,7 +3,7 @@
   import { locale } from '$lib/stores/language.store';
   import { loadTopics, loadMarkdown, loadLocale } from '$lib/utils/content-loader';
   import type { Topic, Locale } from '$lib/types';
-  import TopicRegion from '$lib/components/TopicRegion.svelte';
+  import TopicDisplay from '$lib/components/TopicDisplay.svelte';
   import MouseEffects from '$lib/components/MouseEffects.svelte';
   import LanguagePicker from '$lib/components/LanguagePicker.svelte';
 
@@ -81,7 +81,7 @@
         class="region-item"
         style="animation-delay: {i * 150}ms"
       >
-        <TopicRegion {topic} cards={cardContents} />
+        <TopicDisplay {topic} {cardContents} />
       </div>
     {/each}
   </div>
@@ -168,7 +168,6 @@
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
     transform: translateY(30px);
-    min-height: 400px;
   }
 
   @keyframes fadeInUp {
@@ -181,10 +180,6 @@
   @media (max-width: 1024px) {
     .regions-container {
       grid-template-columns: 1fr;
-    }
-    
-    .region-item {
-      min-height: auto;
     }
   }
 </style>
