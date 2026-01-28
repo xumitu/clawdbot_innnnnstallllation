@@ -19,20 +19,29 @@
     <p class="text-gray-600 max-w-2xl mx-auto">{description}</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4">
-    {#each topic.cards as card, i}
-      {@const markdown = cards.get(card.id) || ''}
-      <div 
-        class="topic-card"
-        style="animation-delay: {i * 100}ms"
-      >
-        <Card {card} {markdown} />
-      </div>
-    {/each}
+  <div class="card-container">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl">
+      {#each topic.cards as card, i}
+        {@const markdown = cards.get(card.id) || ''}
+        <div 
+          class="topic-card"
+          style="animation-delay: {i * 100}ms"
+        >
+          <Card {card} {markdown} />
+        </div>
+      {/each}
+    </div>
   </div>
 </section>
 
 <style>
+  .card-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
   .topic-card {
     animation: fadeInUp 0.6s ease-out forwards;
     opacity: 0;
