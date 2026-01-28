@@ -1,0 +1,1 @@
+{"id": "quick-start", "order": 3, "title": {"en": "Quick Start"}, "description": {"en": "Get started with Clawdbot"}, "cards": [{"id": "basic-usage", "order": 1, "type": "code", "icon": "rocket", "copyable": true}]}

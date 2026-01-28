@@ -3,7 +3,7 @@
   import DOMPurify from 'dompurify';
   import { onMount } from 'svelte';
   import type { Topic } from '$lib/types';
-  import { theme, themeConfig } from '$lib/stores/theme.store';
+  import { theme } from '$lib/stores/theme.store';
 
   let { topic, cardContents } = $props<{
     topic: Topic;
@@ -15,9 +15,7 @@
   let isHovered = $state(false);
 
   let currentTheme = $derived($theme);
-  let config = $derived(themeConfig[currentTheme]);
-  let borderStyle = $derived(`background: ${config.borderGlow};`);
-  let hoverShadow = $derived(config.hoverGlowColor);
+  let isExamples = $derived(currentTheme === 'examples');
 
   onMount(async () => {
     const markdown = cardContents.get(`${topic.id}-${topic.cards[0]?.id}`) || '# ' + topic.title.en;
@@ -32,9 +30,10 @@
   onmouseleave={() => isHovered = false}
   class="topic-display"
   class:hovered={isHovered}
+  class:examples={isExamples}
   role="article"
 >
-  <div class="border-glow" style={borderStyle}></div>
+  <div class="border-glow"></div>
   <div class="content-wrapper">
     <h2 class="topic-title">{topic.title.en}</h2>
     <div class="markdown-content prose">
@@ -57,11 +56,17 @@
     opacity: 0;
   }
 
+  .topic-display.examples {
+    background: rgba(94, 129, 172, 0.35);
+    border-color: rgba(208, 135, 112, 0.25);
+  }
+
   .border-glow {
     position: absolute;
     inset: 0;
     border-radius: 16px;
     padding: 2px;
+    background: linear-gradient(135deg, #D08770 0%, #EBCB8B 25%, #D08770 50%, #BF616A 75%, #D08770 100%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -71,20 +76,21 @@
     pointer-events: none;
   }
 
+  .topic-display.examples .border-glow {
+    background: linear-gradient(135deg, #5E81AC 0%, #81A1C1 25%, #88C0D0 50%, #5E81AC 75%, #88C0D0 100%);
+  }
+
   .topic-display.hovered .border-glow {
     opacity: 1;
   }
 
   .topic-display:hover {
-    box-shadow: 0 0 30px var(--hover-glow);
+    box-shadow: 0 0 30px rgba(208, 135, 112, 0.4);
   }
 
-  .topic-display {
-    --hover-glow: #D08770;
-  }
-
-  :global(.examples) .topic-display {
-    --hover-glow: #88C0D0;
+  .topic-display.examples:hover {
+    box-shadow: 0 0 30px rgba(136, 192, 208, 0.5);
+    border-color: rgba(136, 192, 208, 0.4);
   }
 
   .content-wrapper {
@@ -100,6 +106,10 @@
     margin-bottom: 1rem;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid rgba(136, 192, 208, 0.2);
+  }
+
+  .topic-display.examples .topic-title {
+    border-bottom-color: rgba(208, 135, 112, 0.25);
   }
 
   .markdown-content {
@@ -135,6 +145,11 @@
     color: #EBCB8B;
   }
 
+  .topic-display.examples :global(.prose code) {
+    background: rgba(136, 192, 208, 0.2);
+    color: #88C0D0;
+  }
+
   :global(.prose pre) {
     background: rgba(46, 52, 64, 0.6);
     color: #D8DEE9;
@@ -144,6 +159,10 @@
     margin: 0.75rem 0;
     border: 1px solid rgba(208, 135, 112, 0.2);
     font-size: 0.8rem;
+  }
+
+  .topic-display.examples :global(.prose pre) {
+    border-color: rgba(136, 192, 208, 0.25);
   }
 
   :global(.prose pre code) {
@@ -169,6 +188,11 @@
     margin: 0.75rem 0;
   }
 
+  .topic-display.examples :global(.prose blockquote) {
+    background: rgba(136, 192, 208, 0.1);
+    border-left-color: #88C0D0;
+  }
+
   :global(.prose strong) {
     color: #ECEFF4;
   }
@@ -180,6 +204,10 @@
 
   :global(.prose a:hover) {
     text-decoration: underline;
+  }
+
+  .topic-display.examples :global(.prose a) {
+    color: #D08770;
   }
 
   @keyframes regionAppear {

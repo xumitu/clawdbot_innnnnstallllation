@@ -1,0 +1,38 @@
+{
+  "id": "api-config",
+  "order": 2,
+  "title": {
+    "en": "API Configuration",
+    "ko": "API 설정",
+    "ja": "API設定",
+    "es": "Configuración de API",
+    "ru": "Настройка API",
+    "zh-CN": "API 配置",
+    "zh-TW": "API 配置"
+  },
+  "description": {
+    "en": "Configure API keys and endpoints",
+    "ko": "API 키 및 엔드포인트 구성",
+    "ja": "APIキーとエンドポイントの設定",
+    "es": "Configura las claves y puntos de API",
+    "ru": "Настройте ключи API и конечные точки",
+    "zh-CN": "配置 API 密钥和端点",
+    "zh-TW": "配置 API 密鑰和端點"
+  },
+  "cards": [
+    {
+      "id": "api-key",
+      "order": 1,
+      "type": "info",
+      "icon": "key",
+      "copyable": true
+    },
+    {
+      "id": "env-example",
+      "order": 2,
+      "type": "terminal",
+      "icon": "file",
+      "copyable": true
+    }
+  ]
+}

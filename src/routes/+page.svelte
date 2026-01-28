@@ -1,21 +1,21 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { theme } from '$lib/stores/theme.store';
-  import { loadTopics, loadMarkdown, loadLocale } from '$lib/utils/content-loader';
-  import type { Topic, Locale } from '$lib/types';
+  import { loadTopics, loadMarkdown } from '$lib/utils/content-loader';
+  import type { Topic } from '$lib/types';
   import TopicDisplay from '$lib/components/TopicDisplay.svelte';
   import MouseEffects from '$lib/components/MouseEffects.svelte';
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 
   let topics = $state<Topic[]>([]);
   let cardContents = $state<Map<string, string>>(new Map());
-  let translations = $state<Locale | null>(null);
 
   let mouseX = $state(0);
   let titleBounds: DOMRect | null = $state(null);
 
-  onMount(async () => {
+  async function loadContent() {
     topics = await loadTopics();
+    cardContents = new Map();
     
     for (const topic of topics) {
       for (const card of topic.cards) {
@@ -24,8 +24,16 @@
       }
     }
     cardContents = new Map(cardContents);
-    
-    translations = await loadLocale('en');
+  }
+
+  onMount(() => {
+    loadContent();
+  });
+
+  $effect(() => {
+    if ($theme) {
+      loadContent();
+    }
   });
 
   function onMouseMove(e: MouseEvent) {
@@ -51,37 +59,59 @@
   <title>Clawdbot</title>
 </svelte:head>
 
-<MouseEffects />
-<ThemeSwitcher />
+<div class="page-wrapper" class:examples={$theme === 'examples'}>
+  <MouseEffects />
+  <ThemeSwitcher />
 
-<main class="min-h-screen pb-20">
-  <header class="py-16 text-center">
-    <h1 
-      bind:clientWidth={titleBounds}
-      class="title"
-      style={getTitleStyle()}
-    >
-      clawdbot 分享
-    </h1>
-  </header>
-
-  <div class="regions-container">
-    {#each topics as topic, i}
-      <div 
-        class="region-item"
-        style="animation-delay: {i * 150}ms"
+  <main class="min-h-screen pb-20">
+    <header class="py-16 text-center">
+      <h1 
+        bind:clientWidth={titleBounds}
+        class="title"
+        style={getTitleStyle()}
       >
-        <TopicDisplay {topic} {cardContents} />
-      </div>
-    {/each}
-  </div>
+        clawdbot 分享
+      </h1>
+    </header>
 
-  <footer class="text-center py-12 text-nord-4 text-sm opacity-60">
-    <p>© 2024 Clawdbot. All rights reserved.</p>
-  </footer>
-</main>
+    <div class="regions-container">
+      {#each topics as topic, i}
+        <div 
+          class="region-item"
+          style="animation-delay: {i * 150}ms"
+        >
+          <TopicDisplay {topic} {cardContents} />
+        </div>
+      {/each}
+    </div>
+
+    <footer class="text-center py-12 text-nord-4 text-sm opacity-60">
+      <p>© 2024 Clawdbot. All rights reserved.</p>
+    </footer>
+  </main>
+</div>
 
 <style>
+  .page-wrapper {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(143, 188, 187, 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(136, 192, 208, 0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(129, 161, 193, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 20%, rgba(94, 129, 172, 0.15) 0%, transparent 40%),
+      linear-gradient(180deg, #4C566A 0%, #434C5E 50%, #3B4252 100%);
+    transition: all 0.5s ease;
+  }
+
+  .page-wrapper.examples {
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(208, 135, 112, 0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(235, 203, 139, 0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(191, 97, 106, 0.2) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 20%, rgba(180, 142, 173, 0.2) 0%, transparent 40%),
+      linear-gradient(180deg, #5E81AC 0%, #4C566A 50%, #434C5E 100%);
+  }
+
   .title {
     font-size: 3rem;
     font-weight: 700;

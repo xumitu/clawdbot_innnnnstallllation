@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme, themeConfig } from '$lib/stores/theme.store';
+  import { theme } from '$lib/stores/theme.store';
 
   function setTheme(t: 'install' | 'examples') {
     theme.set(t);
@@ -8,14 +8,14 @@
 
 <div class="theme-switcher">
   <button
-    class="switch-btn"
+    class="switch-btn install-btn"
     class:active={$theme === 'install'}
     onclick={() => setTheme('install')}
   >
     安装
   </button>
   <button
-    class="switch-btn"
+    class="switch-btn examples-btn"
     class:active={$theme === 'examples'}
     onclick={() => setTheme('examples')}
   >
@@ -59,12 +59,24 @@
   }
 
   .switch-btn.active {
-    background: rgba(136, 192, 208, 0.3);
     color: #ECEFF4;
+  }
+
+  .install-btn.active {
+    background: rgba(136, 192, 208, 0.3);
     box-shadow: 0 0 20px rgba(136, 192, 208, 0.3);
   }
 
-  .switch-btn.active:hover {
+  .install-btn.active:hover {
     background: rgba(136, 192, 208, 0.4);
+  }
+
+  .examples-btn.active {
+    background: rgba(208, 135, 112, 0.3);
+    box-shadow: 0 0 20px rgba(208, 135, 112, 0.3);
+  }
+
+  .examples-btn.active:hover {
+    background: rgba(208, 135, 112, 0.4);
   }
 </style>
