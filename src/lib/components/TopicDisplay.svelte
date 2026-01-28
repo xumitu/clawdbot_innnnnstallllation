@@ -32,7 +32,7 @@
   class:hovered={isHovered}
   role="article"
 >
-  <div class="glow-overlay"></div>
+  <div class="border-glow"></div>
   <div class="content-wrapper">
     <h2 class="topic-title">{title}</h2>
     <div class="markdown-content prose">
@@ -50,40 +50,39 @@
     border-radius: 16px;
     border: 1px solid rgba(136, 192, 208, 0.2);
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
     animation: regionAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     opacity: 0;
   }
 
-  .glow-overlay {
+  .border-glow {
     position: absolute;
-    inset: -8px;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(208, 135, 112, 0.5) 0%,
-      rgba(235, 203, 139, 0.3) 40%,
-      transparent 70%
+    inset: 0;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(
+      135deg,
+      #D08770 0%,
+      #EBCB8B 25%,
+      #D08770 50%,
+      #BF616A 75%,
+      #D08770 100%
     );
-    border-radius: 24px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
-    z-index: 0;
-    filter: blur(12px);
   }
 
-  .topic-display.hovered .glow-overlay {
+  .topic-display.hovered .border-glow {
     opacity: 1;
-    animation: ambientGlow 3s ease-in-out infinite;
-  }
-
-  @keyframes ambientGlow {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; }
   }
 
   .topic-display:hover {
-    border-color: rgba(208, 135, 112, 0.4);
+    box-shadow: 0 0 30px rgba(208, 135, 112, 0.4);
   }
 
   .content-wrapper {

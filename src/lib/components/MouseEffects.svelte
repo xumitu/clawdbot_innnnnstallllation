@@ -4,14 +4,22 @@
 
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D | null = null;
-  let trail: Array<{ x: number; y: number; life: number }> = [];
+  let particles: Array<{
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    life: number;
+    maxLife: number;
+    size: number;
+  }> = [];
   let mouseX = 0;
   let mouseY = 0;
   let animationId: number;
   let isVisible = true;
 
-  const TRAIL_LENGTH = 40;
-  const TRAIL_WIDTH = 60;
+  const PARTICLE_COUNT = 30;
+  const HUE_GOLD = 45;
 
   onMount(() => {
     if (!browser) return;
@@ -45,65 +53,62 @@
     mouseX = e.clientX;
     mouseY = e.clientY;
     
-    trail.unshift({ x: mouseX, y: mouseY, life: 1 });
-    if (trail.length > TRAIL_LENGTH) {
-      trail.pop();
+    if (particles.length < PARTICLE_COUNT) {
+      for (let i = 0; i < 2; i++) {
+        createParticle();
+      }
     }
+  }
+
+  function createParticle() {
+    if (!ctx) return;
+    
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 2 + Math.random() * 4;
+    
+    particles.push({
+      x: mouseX,
+      y: mouseY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      life: 1,
+      maxLife: 0.6 + Math.random() * 0.4,
+      size: 3 + Math.random() * 4
+    });
   }
 
   function animate() {
     if (!ctx || !isVisible) return;
 
     ctx!.clearRect(0, 0, canvas.width, canvas.height);
-
-    trail = trail.filter(t => t.life > 0);
-    trail.forEach(t => t.life -= 0.025);
-
-    if (trail.length > 1) {
-      ctx!.globalCompositeOperation = 'lighter';
+    
+    particles = particles.filter(p => p.life > 0);
+    
+    particles.forEach((p) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.95;
+      p.vy *= 0.95;
+      p.life -= 0.025;
       
-      for (let i = 1; i < trail.length; i++) {
-        const current = trail[i];
-        const previous = trail[i - 1];
-        const life = current.life * (1 - i / trail.length);
-        
-        if (life <= 0) continue;
-
-        ctx!.globalAlpha = life * 0.4;
-        
-        const gradient = ctx!.createLinearGradient(
-          previous.x, previous.y,
-          current.x, current.y
-        );
-        gradient.addColorStop(0, 'rgba(255, 230, 150, 0)');
-        gradient.addColorStop(0.5, 'rgba(255, 220, 100, 0.6)');
-        gradient.addColorStop(1, 'rgba(255, 200, 50, 0.8)');
-        
-        ctx!.strokeStyle = gradient;
-        ctx!.lineWidth = TRAIL_WIDTH * life;
-        ctx!.lineCap = 'round';
-        ctx!.lineJoin = 'round';
+      if (p.life > 0) {
+        ctx!.globalAlpha = p.life * 0.7;
+        ctx!.fillStyle = `hsl(${HUE_GOLD}, 100%, 65%)`;
         
         ctx!.beginPath();
-        ctx!.moveTo(previous.x, previous.y);
-        ctx!.lineTo(current.x, current.y);
-        ctx!.stroke();
+        ctx!.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+        ctx!.fill();
         
-        ctx!.shadowBlur = 30;
-        ctx!.shadowColor = 'rgba(255, 220, 100, 0.8)';
+        ctx!.shadowBlur = 15;
+        ctx!.shadowColor = `hsl(${HUE_GOLD}, 100%, 60%)`;
       }
-
-      ctx!.globalCompositeOperation = 'source-over';
-    }
-
-    ctx!.globalAlpha = 1;
-    ctx!.shadowBlur = 0;
+    });
 
     animationId = requestAnimationFrame(animate);
   }
 </script>
 
-<div class="cursor-glow" style="left: {mouseX}px; top: {mouseY}px;"></div>
+<div class="cursor-follower" style="left: {mouseX}px; top: {mouseY}px;">✨</div>
 
 <canvas
   bind:this={canvas}
@@ -111,31 +116,18 @@
 ></canvas>
 
 <style>
-  .cursor-glow {
+  .cursor-follower {
     position: fixed;
-    width: 20px;
-    height: 20px;
+    font-size: 24px;
     pointer-events: none;
     z-index: 9999;
     transform: translate(-50%, -50%);
-    background: radial-gradient(
-      circle,
-      rgba(255, 230, 150, 0.9) 0%,
-      rgba(255, 200, 100, 0.6) 40%,
-      transparent 70%
-    );
-    filter: blur(4px);
-    animation: glowPulse 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 200, 50, 0.9));
+    animation: pulse 1s ease-in-out infinite;
   }
 
-  @keyframes glowPulse {
-    0%, 100% { 
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 0.9;
-    }
-    50% { 
-      transform: translate(-50%, -50%) scale(1.3);
-      opacity: 1;
-    }
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.15); }
   }
 </style>
