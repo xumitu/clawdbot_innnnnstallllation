@@ -1,29 +1,27 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { theme } from '$lib/stores/theme.store';
-  import { loadTopics, loadMarkdown } from '$lib/utils/content-loader';
+  import { loadTopics, loadTopicMarkdown } from '$lib/utils/content-loader';
   import type { Topic } from '$lib/types';
   import TopicDisplay from '$lib/components/TopicDisplay.svelte';
   import MouseEffects from '$lib/components/MouseEffects.svelte';
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 
   let topics = $state<Topic[]>([]);
-  let cardContents = $state<Map<string, string>>(new Map());
+  let topicContents = $state<Map<string, string>>(new Map());
 
   let mouseX = $state(0);
   let titleBounds: DOMRect | null = $state(null);
 
   async function loadContent() {
     topics = await loadTopics();
-    cardContents = new Map();
+    topicContents = new Map();
     
     for (const topic of topics) {
-      for (const card of topic.cards) {
-        const md = await loadMarkdown(topic.id, card.id);
-        cardContents.set(`${topic.id}-${card.id}`, md);
-      }
+      const md = await loadTopicMarkdown(topic.id);
+      topicContents.set(topic.id, md);
     }
-    cardContents = new Map(cardContents);
+    topicContents = new Map(topicContents);
   }
 
   onMount(() => {
@@ -80,7 +78,7 @@
           class="region-item"
           style="animation-delay: {i * 150}ms"
         >
-          <TopicDisplay {topic} {cardContents} />
+          <TopicDisplay {topic} markdownContent={topicContents.get(topic.id) || ''} />
         </div>
       {/each}
     </div>

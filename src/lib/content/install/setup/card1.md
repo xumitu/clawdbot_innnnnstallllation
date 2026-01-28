@@ -1,9 +1,23 @@
-# One-Command Install
+# 轮胎安装指南
 
-To install Clawdbot, simply run the following command in your terminal:
+## 准备工作
 
-```bash
-curl -fsSL https://install.clawdbot.com/install.sh | bash
-```
+安装轮胎前，确保车辆已停放在平坦坚实的地面上，拉紧手刹并用三角垫木固定车轮。准备好所需工具：千斤顶、扳手、润滑剂等。
 
-This script will automatically download and install the latest version of Clawdbot.
+## 安装步骤
+
+1. **拆卸旧轮胎**：使用扳手松开螺丝（不要完全拧下），用千斤顶抬起车辆至轮胎离地，完全拆下旧轮胎。
+
+2. **检查轮毂**：清除轮毂上的锈迹和杂物，检查螺栓孔是否完好，必要时进行修复。
+
+3. **涂抹润滑剂**：在轮胎边缘和轮毂接触处涂抹适量润滑剂，便于安装并防止漏气。
+
+4. **安装新轮胎**：将新轮胎对准螺栓孔，用手将螺丝拧入到位。使用扳手按对角线顺序均匀拧紧螺丝。
+
+5. **降下车辆**：降下千斤顶后，再次用扳手加固所有螺丝，确保扭矩一致。
+
+## 注意事项
+
+- 螺丝不要一次拧紧，要交叉进行
+- 确保轮胎气压符合厂家标准
+- 安装后行驶50公里内再次检查螺丝紧固度

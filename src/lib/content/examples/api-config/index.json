@@ -1,1 +1,1 @@
-{"id": "api-config", "order": 2, "title": {"en": "疾病防控", "zh-CN": "疾病防控"}, "description": {"en": "Disease prevention and control", "zh-CN": "猪场疾病防疫体系"}, "cards": [{"id": "disease预防", "order": 1, "type": "terminal", "icon": "💉", "copyable": true}]}
+{"id": "api-config", "order": 2, "title": {"en": "猪饲料配方", "zh-CN": "猪饲料配方"}, "description": {"en": "Feed formula and feeding", "zh-CN": "饲料配方与喂养管理"}, "cards": [{"id": "feed-formula", "order": 1, "type": "code", "icon": "🌾", "copyable": true}]}

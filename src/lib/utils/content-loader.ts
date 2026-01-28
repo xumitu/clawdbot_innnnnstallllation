@@ -83,6 +83,43 @@ export async function loadMarkdown(topicId: string, cardId: string): Promise<str
   }
 }
 
+export async function loadTopicMarkdown(topicId: string): Promise<string> {
+  const currentTheme = get(theme);
+  const contentDir = currentTheme === 'examples' ? 'examples' : 'install';
+  const cacheKey = `${contentDir}-${topicId}-full`;
+  
+  if (markdownCache.has(cacheKey)) {
+    return markdownCache.get(cacheKey)!;
+  }
+
+  const topic = topicCache.get(`${contentDir}-${topicId}`);
+  if (!topic || topic.cards.length === 0) return '';
+
+  const firstCard = topic.cards[0];
+  const fileName = firstCard.markdownFile || `card${firstCard.order}.md`;
+
+  try {
+    const modules: Record<string, () => Promise<{ default: string }>> = {
+      [`install-setup`]: () => import('../content/install/setup/card1.md?raw'),
+      [`install-api-config`]: () => import('../content/install/api-config/card1.md?raw'),
+      [`install-quick-start`]: () => import('../content/install/quick-start/card1.md?raw'),
+      [`examples-setup`]: () => import('../content/examples/setup/card1.md?raw'),
+      [`examples-api-config`]: () => import('../content/examples/api-config/card1.md?raw'),
+      [`examples-quick-start`]: () => import('../content/examples/quick-start/card1.md?raw')
+    };
+
+    const key = `${contentDir}-${topicId}`;
+    if (modules[key]) {
+      const module = await modules[key]();
+      markdownCache.set(cacheKey, module.default);
+      return module.default;
+    }
+    return '';
+  } catch {
+    return '';
+  }
+}
+
 let localeCache: Record<string, Locale> = {};
 
 export async function loadLocale(lang: SupportedLocale): Promise<Locale> {

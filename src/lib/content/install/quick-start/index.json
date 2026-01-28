@@ -1,1 +1,1 @@
-{"id": "quick-start", "order": 3, "title": {"en": "Quick Start"}, "description": {"en": "Get started with Clawdbot"}, "cards": [{"id": "basic-usage", "order": 1, "type": "code", "icon": "rocket", "copyable": true}]}
+{"id": "quick-start", "order": 3, "title": {"en": "学习葛博", "zh-CN": "学习葛博"}, "description": {"en": "Master Gebo learning system", "zh-CN": "葛博学习系统使用指南"}, "cards": [{"id": "gebo-learn", "order": 1, "type": "code", "icon": "📚", "copyable": true}]}

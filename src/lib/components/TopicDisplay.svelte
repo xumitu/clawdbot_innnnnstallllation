@@ -5,9 +5,9 @@
   import type { Topic } from '$lib/types';
   import { theme } from '$lib/stores/theme.store';
 
-  let { topic, cardContents } = $props<{
+  let { topic, markdownContent = '' } = $props<{
     topic: Topic;
-    cardContents: Map<string, string>;
+    markdownContent?: string;
   }>();
 
   let htmlContent = $state('');
@@ -18,9 +18,20 @@
   let isExamples = $derived(currentTheme === 'examples');
 
   onMount(async () => {
-    const markdown = cardContents.get(`${topic.id}-${topic.cards[0]?.id}`) || '# ' + topic.title.en;
-    const raw = await marked.parse(markdown);
-    htmlContent = DOMPurify.sanitize(raw as string);
+    if (markdownContent) {
+      const raw = await marked.parse(markdownContent);
+      htmlContent = DOMPurify.sanitize(raw as string);
+    }
+  });
+
+  $effect(() => {
+    async function updateContent() {
+      if (markdownContent) {
+        const raw = await marked.parse(markdownContent);
+        htmlContent = DOMPurify.sanitize(raw as string);
+      }
+    }
+    updateContent();
   });
 </script>
 
@@ -118,25 +129,38 @@
     color: #D8DEE9;
   }
 
-  :global(.prose h1) {
+  .markdown-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+
+  .markdown-content :global(video) {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+
+  .markdown-content :global(h1) {
     font-size: 1rem;
     font-weight: 600;
     color: #ECEFF4;
     margin: 0.75rem 0 0.5rem;
   }
 
-  :global(.prose h2) {
+  .markdown-content :global(h2) {
     font-size: 0.9rem;
     font-weight: 600;
     color: #E5E9F0;
     margin: 0.6rem 0 0.3rem;
   }
 
-  :global(.prose p) {
+  .markdown-content :global(p) {
     margin: 0.4rem 0;
   }
 
-  :global(.prose code) {
+  .markdown-content :global(code) {
     font-family: 'Fira Code', 'Consolas', monospace;
     background: rgba(208, 135, 112, 0.2);
     padding: 0.1rem 0.35rem;
@@ -145,12 +169,12 @@
     color: #EBCB8B;
   }
 
-  .topic-display.examples :global(.prose code) {
+  .topic-display.examples :global(code) {
     background: rgba(136, 192, 208, 0.2);
     color: #88C0D0;
   }
 
-  :global(.prose pre) {
+  .markdown-content :global(pre) {
     background: rgba(46, 52, 64, 0.6);
     color: #D8DEE9;
     padding: 0.75rem;
@@ -161,26 +185,26 @@
     font-size: 0.8rem;
   }
 
-  .topic-display.examples :global(.prose pre) {
+  .topic-display.examples :global(pre) {
     border-color: rgba(136, 192, 208, 0.25);
   }
 
-  :global(.prose pre code) {
+  .markdown-content :global(pre code) {
     background: transparent;
     padding: 0;
     color: inherit;
   }
 
-  :global(.prose ul) {
+  .markdown-content :global(ul), .markdown-content :global(ol) {
     padding-left: 1.25rem;
     margin: 0.5rem 0;
   }
 
-  :global(.prose li) {
+  .markdown-content :global(li) {
     margin: 0.25rem 0;
   }
 
-  :global(.prose blockquote) {
+  .markdown-content :global(blockquote) {
     background: rgba(208, 135, 112, 0.1);
     border-left: 3px solid #D08770;
     padding: 0.5rem 1rem;
@@ -188,25 +212,25 @@
     margin: 0.75rem 0;
   }
 
-  .topic-display.examples :global(.prose blockquote) {
+  .topic-display.examples :global(blockquote) {
     background: rgba(136, 192, 208, 0.1);
     border-left-color: #88C0D0;
   }
 
-  :global(.prose strong) {
+  .markdown-content :global(strong) {
     color: #ECEFF4;
   }
 
-  :global(.prose a) {
+  .markdown-content :global(a) {
     color: #88C0D0;
     text-decoration: none;
   }
 
-  :global(.prose a:hover) {
+  .markdown-content :global(a:hover) {
     text-decoration: underline;
   }
 
-  .topic-display.examples :global(.prose a) {
+  .topic-display.examples :global(a) {
     color: #D08770;
   }
 
