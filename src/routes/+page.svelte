@@ -3,7 +3,7 @@
   import { locale } from '$lib/stores/language.store';
   import { loadTopics, loadMarkdown, loadLocale } from '$lib/utils/content-loader';
   import type { Topic, Locale } from '$lib/types';
-  import TopicSection from '$lib/components/TopicSection.svelte';
+  import TopicRegion from '$lib/components/TopicRegion.svelte';
   import MouseEffects from '$lib/components/MouseEffects.svelte';
   import LanguagePicker from '$lib/components/LanguagePicker.svelte';
 
@@ -62,7 +62,7 @@
 <LanguagePicker />
 
 <main class="min-h-screen pb-20">
-  <header class="py-20 text-center bg-gradient-to-b from-nord-3 to-transparent">
+  <header class="py-16 text-center">
     <h1 
       bind:clientWidth={titleBounds}
       class="title"
@@ -70,14 +70,21 @@
     >
       Clawdbot
     </h1>
-    <p class="text-xl text-nord-4 max-w-2xl mx-auto px-4">
+    <p class="text-xl text-nord-4 max-w-2xl mx-auto px-4 opacity-80">
       AI Agent Installation Guide
     </p>
   </header>
 
-  {#each topics as topic}
-    <TopicSection {topic} cards={cardContents} />
-  {/each}
+  <div class="regions-container">
+    {#each topics as topic, i}
+      <div 
+        class="region-item"
+        style="animation-delay: {i * 150}ms"
+      >
+        <TopicRegion {topic} cards={cardContents} />
+      </div>
+    {/each}
+  </div>
 
   <footer class="text-center py-12 text-nord-4 text-sm opacity-60">
     <p>© 2024 Clawdbot. All rights reserved.</p>
@@ -145,6 +152,39 @@
     }
     50% {
       background-position: -100% 0;
+    }
+  }
+
+  .regions-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .region-item {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+    min-height: 400px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .regions-container {
+      grid-template-columns: 1fr;
+    }
+    
+    .region-item {
+      min-height: auto;
     }
   }
 </style>

@@ -30,9 +30,16 @@ html {
 }
 
 body {
-  background-color: var(--nord-3);
+  min-height: 100vh;
   color: var(--nord-4);
   overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(143, 188, 187, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(136, 192, 208, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(129, 161, 193, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 20%, rgba(94, 129, 172, 0.25) 0%, transparent 40%),
+    linear-gradient(180deg, var(--nord-2) 0%, var(--nord-3) 50%, var(--nord-1) 100%);
+  background-attachment: fixed;
 }
 
 ::-webkit-scrollbar {
