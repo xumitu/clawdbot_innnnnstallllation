@@ -4,6 +4,7 @@
   import TiltCard from '$lib/components/TiltCard.svelte';
 
   const introText = '在写教程的时候还是觉得安装有一些门槛，尤其是国外网站和我们的DNS配置导致安装在国内失败率很高。于是写了这个在Apple Mac系列的Apple Silicon M系列处理器上面的安装器。这是第一个版本只适用于干净的系统初次安装，后续会迭代。请耐心等待';
+  const downloadUrl = 'https://github.com/xumitu/clawdbot_innnnnstallllation/releases/download/v1.0.0/Moltbot-Installer.zip';
 </script>
 
 <svelte:head>
@@ -26,7 +27,7 @@
       <h2 class="download-title">点击下载 MoltBot 安装器 Beta</h2>
 
       <div class="card-wrapper">
-        <TiltCard href="../files/Moltbot-Installer.zip" download="Moltbot-Installer.zip">
+        <TiltCard href={downloadUrl} download="Moltbot-Installer.zip">
           <div class="app-card-content">
             <img src="../images/install.png" alt="Moltbot Installer" class="app-icon" />
             <div class="app-info">

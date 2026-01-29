@@ -32,6 +32,10 @@
           </div>
         </TiltCard>
       </div>
+
+      <div class="info-card orange">
+        <p class="info-text">更多案例正在制作中，请期待后续更新</p>
+      </div>
     </section>
   </main>
 </div>
@@ -117,6 +121,28 @@
     font-weight: 600;
     color: #D08770;
     letter-spacing: 0.5em;
+  }
+
+  .info-card {
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .info-card.orange {
+    background: rgba(208, 135, 112, 0.2);
+    border: 1px solid rgba(208, 135, 112, 0.3);
+  }
+
+  .info-text {
+    font-size: 0.8rem;
+    color: #D8DEE9;
+    opacity: 0.85;
+    text-align: center;
+    line-height: 1.7;
+    margin: 0;
   }
 
   @media (max-width: 768px) {
