@@ -26,9 +26,9 @@
       <h2 class="download-title">点击下载 MoltBot 安装器 Beta</h2>
 
       <div class="card-wrapper">
-        <TiltCard href="files/Moltbot-Installer.zip" download="Moltbot-Installer.zip">
+        <TiltCard href="../files/Moltbot-Installer.zip" download="Moltbot-Installer.zip">
           <div class="app-card-content">
-            <img src="/images/install.png" alt="Moltbot Installer" class="app-icon" />
+            <img src="../images/install.png" alt="Moltbot Installer" class="app-icon" />
             <div class="app-info">
               <span class="app-name">Moltbot Installer.zip</span>
               <span class="app-desc">点击下载 · 解压后安装</span>
@@ -132,6 +132,7 @@
     flex-shrink: 0;
     border-radius: 24px;
     display: block;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
 
   .app-info {

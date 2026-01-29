@@ -3,7 +3,7 @@
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
   import TiltCard from '$lib/components/TiltCard.svelte';
 
-  const comingSoonText = '正在赶工 ing...';
+  const comingSoonText = '敬请期待';
 </script>
 
 <svelte:head>
