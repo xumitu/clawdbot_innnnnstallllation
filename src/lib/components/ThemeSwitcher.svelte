@@ -1,17 +1,18 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { base } from '$app/paths';
 </script>
 
 <div class="theme-switcher">
   <a
-    href="/install"
+    href="{base}/"
     class="switch-btn install-btn"
-    class:active={$page.url.pathname.startsWith('/install')}
+    class:active={$page.url.pathname === '/' || $page.url.pathname.startsWith('/install')}
   >
     安装
   </a>
   <a
-    href="/examples"
+    href="{base}/examples"
     class="switch-btn examples-btn"
     class:active={$page.url.pathname.startsWith('/examples')}
   >
