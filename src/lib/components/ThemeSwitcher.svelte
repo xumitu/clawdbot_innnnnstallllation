@@ -1,26 +1,22 @@
 <script lang="ts">
-  import { theme } from '$lib/stores/theme.store';
-
-  function setTheme(t: 'install' | 'examples') {
-    theme.set(t);
-  }
+  import { page } from '$app/stores';
 </script>
 
 <div class="theme-switcher">
-  <button
+  <a
+    href="/install"
     class="switch-btn install-btn"
-    class:active={$theme === 'install'}
-    onclick={() => setTheme('install')}
+    class:active={$page.url.pathname.startsWith('/install')}
   >
     安装
-  </button>
-  <button
+  </a>
+  <a
+    href="/examples"
     class="switch-btn examples-btn"
-    class:active={$theme === 'examples'}
-    onclick={() => setTheme('examples')}
+    class:active={$page.url.pathname.startsWith('/examples')}
   >
     案例
-  </button>
+  </a>
 </div>
 
 <style>
@@ -46,6 +42,7 @@
     background: transparent;
     border: none;
     border-radius: 8px;
+    text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
   }
