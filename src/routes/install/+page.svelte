@@ -2,7 +2,6 @@
   import MouseEffects from '$lib/components/MouseEffects.svelte';
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
   import TiltCard from '$lib/components/TiltCard.svelte';
-  import FireflyText from '$lib/components/FireflyText.svelte';
 
   const introText = '在写教程的时候还是觉得安装有一些门槛，尤其是国外网站和我们的DNS配置导致安装在国内失败率很高。于是写了这个在Apple Mac系列的Apple Silicon M系列处理器上面的安装器。这是第一个版本只适用于干净的系统初次安装，后续会迭代。请耐心等待';
 </script>
@@ -27,19 +26,23 @@
       <h2 class="download-title">点击下载 MoltBot 安装器 Beta</h2>
 
       <div class="card-wrapper">
-        <TiltCard href="/files/Moltbot-Installer.app.zip">
+        <TiltCard href="/files/Moltbot-Installer.zip">
           <div class="app-card-content">
-            <img src="/images/app-icon.svg" alt="Moltbot Installer" class="app-icon" />
+            <img src="/images/install.png" alt="Moltbot Installer" class="app-icon glass-effect" />
             <div class="app-info">
-              <span class="app-name">Moltbot Installer.app</span>
-              <span class="app-desc">点击下载</span>
+              <span class="app-name">Moltbot Installer.zip</span>
+              <span class="app-desc">点击下载 · 解压后安装</span>
             </div>
           </div>
         </TiltCard>
       </div>
 
-      <div class="intro-text">
-        <FireflyText text={introText} />
+      <div class="info-card orange">
+        <p class="info-text glow-text">{introText}</p>
+      </div>
+
+      <div class="info-card blue">
+        <p class="info-text">本网页和 APP 均由 MoltBot 生成</p>
       </div>
     </section>
   </main>
@@ -124,9 +127,18 @@
   }
 
   .app-icon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     flex-shrink: 0;
+    border-radius: 24px;
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
 
   .app-info {
@@ -148,13 +160,35 @@
     opacity: 0.8;
   }
 
-  .intro-text {
-    font-size: 0.75rem;
+  .info-card {
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .info-card.orange {
+    background: rgba(208, 135, 112, 0.2);
+    border: 1px solid rgba(208, 135, 112, 0.3);
+  }
+
+  .info-card.blue {
+    background: rgba(136, 192, 208, 0.15);
+    border: 1px solid rgba(136, 192, 208, 0.3);
+  }
+
+  .info-text {
+    font-size: 0.8rem;
     color: #D8DEE9;
-    opacity: 0.8;
+    opacity: 0.85;
     text-align: center;
-    line-height: 1.8;
-    max-width: 90%;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 8px rgba(208, 135, 112, 0.5), 0 0 16px rgba(208, 135, 112, 0.3);
   }
 
   @media (max-width: 768px) {
