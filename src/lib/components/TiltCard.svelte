@@ -25,7 +25,13 @@
 
   function onClick(e: MouseEvent) {
     if (href && href !== '#') {
-      window.open(href, '_blank');
+      e.preventDefault();
+      const link = document.createElement('a');
+      link.href = href;
+      link.download = '';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   }
 </script>
