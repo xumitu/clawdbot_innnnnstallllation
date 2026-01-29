@@ -2,10 +2,11 @@
   import { onMount } from 'svelte';
   import { calculateTilt } from '$lib/utils/tilt-calculator';
 
-  let { children, href = '#', cardType = 'default' } = $props<{
+  let { children, href = '#', cardType = 'default', download = '' } = $props<{
     children?: import('svelte').Snippet;
     href?: string;
     cardType?: 'default' | 'orange';
+    download?: string;
   }>();
 
   let element: HTMLElement;
@@ -32,7 +33,7 @@
       } else {
         const link = document.createElement('a');
         link.href = href;
-        link.download = '';
+        link.download = download || '';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

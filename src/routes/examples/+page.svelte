@@ -23,6 +23,8 @@
     </header>
 
     <section class="content-region">
+      <h2 class="download-title">敬请期待</h2>
+
       <div class="card-wrapper">
         <TiltCard href="https://www.bilibili.com" cardType="orange">
           <div class="coming-soon-content">
@@ -42,7 +44,7 @@
       radial-gradient(ellipse at 80% 70%, rgba(235, 203, 139, 0.25) 0%, transparent 50%),
       radial-gradient(ellipse at 50% 50%, rgba(191, 97, 106, 0.2) 0%, transparent 60%),
       radial-gradient(ellipse at 70% 20%, rgba(180, 142, 173, 0.2) 0%, transparent 40%),
-      linear-gradient(180deg, #5E81AC 0%, #4C566A 50%, #434C5E 100%);
+      linear-gradient(180deg, #4C566A 0%, #4C566A 50%, #434C5E 100%);
   }
 
   .centered-content {
@@ -80,12 +82,21 @@
     margin-top: 0.5rem;
   }
 
+  .download-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ECEFF4;
+    text-align: center;
+    margin: 0 0 1.5rem 0;
+  }
+
   .content-region {
     width: 50%;
     max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1.5rem;
   }
 
   .card-wrapper {
