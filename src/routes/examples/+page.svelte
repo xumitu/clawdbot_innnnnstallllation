@@ -24,7 +24,7 @@
 
     <section class="content-region">
       <div class="card-wrapper">
-        <TiltCard>
+        <TiltCard href="https://www.bilibili.com" cardType="orange">
           <div class="coming-soon-content">
             <span class="coming-soon-text">{comingSoonText}</span>
           </div>

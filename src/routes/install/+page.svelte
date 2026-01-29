@@ -26,7 +26,7 @@
       <h2 class="download-title">点击下载 MoltBot 安装器 Beta</h2>
 
       <div class="card-wrapper">
-        <TiltCard href="/files/Moltbot-Installer.app.zip">
+        <TiltCard href="/files/Moltbot-Installer.zip">
           <div class="app-card-content">
             <img src="/images/install.png" alt="Moltbot Installer" class="app-icon glass-effect" />
             <div class="app-info">

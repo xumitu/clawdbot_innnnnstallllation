@@ -2,9 +2,10 @@
   import { onMount } from 'svelte';
   import { calculateTilt } from '$lib/utils/tilt-calculator';
 
-  let { children, href = '#' } = $props<{
+  let { children, href = '#', cardType = 'default' } = $props<{
     children?: import('svelte').Snippet;
     href?: string;
+    cardType?: 'default' | 'orange';
   }>();
 
   let element: HTMLElement;
@@ -26,28 +27,33 @@
   function onClick(e: MouseEvent) {
     if (href && href !== '#') {
       e.preventDefault();
-      const link = document.createElement('a');
-      link.href = href;
-      link.download = '';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      if (href.includes('bilibili.com')) {
+        window.open(href, '_blank');
+      } else {
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     }
   }
 </script>
 
-<a 
+<div
   bind:this={element}
   onmousemove={onMouseMove}
   onmouseleave={onMouseLeave}
   onclick={onClick}
   class="tilt-card"
+  class:orange={cardType === 'orange'}
   style:transform="perspective(1000px) rotateX({rotateX}deg) rotateY({rotateY}deg)"
   role="button"
   tabindex="0"
 >
   {@render children?.()}
-</a>
+</div>
 
 <style>
   .tilt-card {
@@ -81,5 +87,24 @@
   .tilt-card:hover {
     border-color: rgba(136, 192, 208, 0.6);
     box-shadow: 0 8px 32px rgba(136, 192, 208, 0.3);
+  }
+
+  .tilt-card.orange {
+    background: linear-gradient(135deg, rgba(208, 135, 112, 0.15) 0%, rgba(191, 97, 106, 0.2) 100%);
+    border: 1px solid rgba(208, 135, 112, 0.3);
+  }
+
+  .tilt-card.orange::before {
+    background: linear-gradient(
+      135deg,
+      rgba(208, 135, 112, 0.1) 0%,
+      transparent 50%,
+      rgba(191, 97, 106, 0.1) 100%
+    );
+  }
+
+  .tilt-card.orange:hover {
+    border-color: rgba(208, 135, 112, 0.6);
+    box-shadow: 0 8px 32px rgba(208, 135, 112, 0.3);
   }
 </style>
